@@ -1,4 +1,4 @@
-# introducao
+# CSEventos
 
 Checkout do projeto:
 
