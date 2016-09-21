@@ -1,4 +1,4 @@
-package br.com.unirriter.service;
+package br.com.unirriter.validador;
 
 import org.joda.time.LocalDate;
 
@@ -6,9 +6,9 @@ import br.com.unirriter.exception.CSEventosException;
 import br.com.unirriter.model.Evento;
 import br.com.unirriter.utils.DateUtils;
 
-public class EventoService {
+public class EventoValidador {
 	
-	public static void validarEvento(Evento evento) throws CSEventosException {
+	public static void validar(Evento evento) throws CSEventosException {
 		validarCamposObrigatorios(evento);
 		validarNomeCaracteres(evento);
 		validarDataMaiorDataAtual(evento);

@@ -1,4 +1,4 @@
-package br.com.unirriter.service;
+package br.com.unirriter.validador;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
@@ -9,8 +9,9 @@ import org.junit.rules.ExpectedException;
 
 import br.com.unirriter.exception.CSEventosException;
 import br.com.unirriter.model.Evento;
+import br.com.unirriter.validador.EventoValidador;
 
-public class EventoServiceTest {
+public class EventoValidadorTest {
 	
 	private Evento evento;
 	
@@ -34,7 +35,7 @@ public class EventoServiceTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Campo nome é obrigatório!");
 		
-		EventoService.validarEvento(evento);
+		EventoValidador.validar(evento);
 	}
 	
 	@Test
@@ -45,7 +46,7 @@ public class EventoServiceTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Campo nome é obrigatório!");
 		
-		EventoService.validarEvento(evento);
+		EventoValidador.validar(evento);
 	}
 
 	@Test
@@ -56,7 +57,7 @@ public class EventoServiceTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Campo data é obrigatória!");
 		
-		EventoService.validarEvento(evento);
+		EventoValidador.validar(evento);
 	}
 	
 	@Test
@@ -69,7 +70,7 @@ public class EventoServiceTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("O nome permite no máximo 150 caracteres!");
 		
-		EventoService.validarEvento(evento);
+		EventoValidador.validar(evento);
 	}
 	
 	@Test
@@ -81,7 +82,7 @@ public class EventoServiceTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("A data do evento deve ser maior ou igual a de hoje!");
 		
-		EventoService.validarEvento(evento);
+		EventoValidador.validar(evento);
 	}
 	
 	@Test
@@ -90,6 +91,6 @@ public class EventoServiceTest {
 		LocalDate data = LocalDate.now().plusDays(10);
 		evento.setData(data);
 		
-		EventoService.validarEvento(evento);
+		EventoValidador.validar(evento);
 	}
 }
