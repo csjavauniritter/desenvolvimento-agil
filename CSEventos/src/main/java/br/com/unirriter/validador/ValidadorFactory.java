@@ -10,6 +10,7 @@ public class ValidadorFactory {
 	private List<Validador> validadores;
 	
 	protected ValidadorFactory() {
+		validadores = new LinkedList<Validador>();
 		this.criarValidadores();
 	}
 	
@@ -25,7 +26,6 @@ public class ValidadorFactory {
 	}
 	
 	private void criarValidadores() {
-		validadores = new LinkedList<Validador>();
 		validadores.add(new CamposObrigatoriosValidador());
 		validadores.add(new NomeMaximoCaracteresValidador());
 		validadores.add(new DataValidador());
