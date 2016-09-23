@@ -1,4 +1,6 @@
-package br.com.unirriter.validador;
+package br.com.unirriter.service;
+
+import static org.junit.Assert.assertTrue;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
@@ -9,11 +11,11 @@ import org.junit.rules.ExpectedException;
 
 import br.com.unirriter.exception.CSEventosException;
 import br.com.unirriter.model.Evento;
-import br.com.unirriter.validador.EventoValidador;
 
-public class EventoValidadorTest {
-	
+public class EventoServiceTest {
+
 	private Evento evento;
+	private EventoService eventoService;
 	
 	@Rule
 	public ExpectedException exceptionEsperada = ExpectedException.none();
@@ -21,11 +23,13 @@ public class EventoValidadorTest {
 	@Before
 	public void setUp() {
 		evento = new Evento();
+		eventoService = new EventoService();
 	}
 	
 	@After
 	public void tearDown() {
 		evento = null;
+		eventoService = null;
 	}
 	
 	@Test
@@ -35,7 +39,7 @@ public class EventoValidadorTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Campo nome é obrigatório!");
 		
-		EventoValidador.validar(evento);
+		eventoService.salvarEvento(evento);
 	}
 	
 	@Test
@@ -46,7 +50,7 @@ public class EventoValidadorTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Campo nome é obrigatório!");
 		
-		EventoValidador.validar(evento);
+		eventoService.salvarEvento(evento);
 	}
 
 	@Test
@@ -57,7 +61,7 @@ public class EventoValidadorTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Campo data é obrigatória!");
 		
-		EventoValidador.validar(evento);
+		eventoService.salvarEvento(evento);
 	}
 	
 	@Test
@@ -70,7 +74,7 @@ public class EventoValidadorTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("O nome permite no máximo 150 caracteres!");
 		
-		EventoValidador.validar(evento);
+		eventoService.salvarEvento(evento);
 	}
 	
 	@Test
@@ -82,15 +86,15 @@ public class EventoValidadorTest {
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("A data do evento deve ser maior ou igual a de hoje!");
 		
-		EventoValidador.validar(evento);
+		eventoService.salvarEvento(evento);
 	}
 	
 	@Test
-	public void validarEvento() throws Exception {
+	public void salvarEvento() throws Exception {
 		evento.setNome("Evento Unit Test");
 		LocalDate data = LocalDate.now().plusDays(10);
 		evento.setData(data);
 		
-		EventoValidador.validar(evento);
+		assertTrue(eventoService.salvarEvento(evento));
 	}
 }
