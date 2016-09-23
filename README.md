@@ -2,6 +2,6 @@
 
 Checkout do projeto:
 
-git clone https://github.com/csjavauniritter/introducao.git
+git clone https://github.com/csjavauniritter/desenvolvimento-agil.git
 
 E só dale! :)
