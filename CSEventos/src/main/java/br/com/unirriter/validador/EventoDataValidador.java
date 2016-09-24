@@ -7,7 +7,7 @@ import br.com.unirriter.model.Evento;
 import br.com.unirriter.utils.DateUtils;
 import br.com.unirriter.utils.ResourceBundleUtils;
 
-public class DataValidador implements Validador {
+public class EventoDataValidador implements EventoValidador {
 
 	@Override
 	public void validar(Evento evento) throws CSEventosException {

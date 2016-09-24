@@ -6,7 +6,7 @@ import br.com.unirriter.exception.CSEventosException;
 import br.com.unirriter.model.Evento;
 import br.com.unirriter.utils.ResourceBundleUtils;
 
-public class CamposObrigatoriosValidador implements Validador {
+public class EventoCamposObrigatoriosValidador implements EventoValidador {
 
 	@Override
 	public void validar(Evento evento) throws CSEventosException {

@@ -2,6 +2,7 @@ package br.com.unirriter.service;
 
 import static org.junit.Assert.assertTrue;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
@@ -66,9 +67,9 @@ public class EventoServiceTest {
 	
 	@Test
 	public void validarCampoNomeMaiorQue150Caracteres() throws Exception {
-		evento.setNome("Evento XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-				+ "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-				+ "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		String nome = StringUtils.rightPad("evento ", 151, 'x');
+		evento.setNome(nome);
+		
 		evento.setData(LocalDate.now());
 		
 		exceptionEsperada.expect(CSEventosException.class);

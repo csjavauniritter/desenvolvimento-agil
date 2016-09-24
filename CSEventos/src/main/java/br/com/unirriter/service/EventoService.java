@@ -4,15 +4,15 @@ import java.util.List;
 
 import br.com.unirriter.exception.CSEventosException;
 import br.com.unirriter.model.Evento;
-import br.com.unirriter.validador.Validador;
-import br.com.unirriter.validador.ValidadorFactory;
+import br.com.unirriter.validador.EventoValidador;
+import br.com.unirriter.validador.EventoValidadorFactory;
 
 public class EventoService {
 	
-	private ValidadorFactory validador;
+	private EventoValidadorFactory validador;
 	
 	public EventoService() {
-		this.validador = ValidadorFactory.getInstance();
+		this.validador = EventoValidadorFactory.getInstance();
 	}
 
 	public boolean salvarEvento(Evento evento) throws CSEventosException {
@@ -23,8 +23,8 @@ public class EventoService {
 		/**
 		 * validar evento
 		 */
-		List<Validador> validadores = validador.getValidadores();
-		for (Validador validador : validadores) {
+		List<EventoValidador> validadores = validador.getValidadores();
+		for (EventoValidador validador : validadores) {
 			validador.validar(evento);
 		}
 		
