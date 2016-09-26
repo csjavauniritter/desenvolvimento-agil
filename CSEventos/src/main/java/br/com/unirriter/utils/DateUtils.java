@@ -16,7 +16,11 @@ public class DateUtils {
 		}
 	}
 	
-	public static boolean verificarDataAnteriorAtual(LocalDate data) {
-		return data.isBefore(LocalDate.now());
+	public static boolean verificarDataAnteriorOuIgualAtual(LocalDate data) {
+		return verificarDataInicioAnteriorOuIgualDataFim(LocalDate.now(), data);
+	}
+	
+	public static boolean verificarDataInicioAnteriorOuIgualDataFim(LocalDate inicio, LocalDate fim) {
+		return inicio.isBefore(fim) || inicio.isEqual(fim);
 	}
 }

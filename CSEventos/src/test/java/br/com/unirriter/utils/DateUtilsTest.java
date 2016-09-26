@@ -20,20 +20,20 @@ public class DateUtilsTest {
 	public void validarDataPosteriorAtual() {
 		LocalDate data = LocalDate.now().plusMonths(2);
 		
-		assertFalse(DateUtils.verificarDataAnteriorAtual(data));
+		assertTrue(DateUtils.verificarDataAnteriorOuIgualAtual(data));
 	}
 	
 	@Test
 	public void validarDataIgualAtual() {
 		LocalDate data = LocalDate.now();
 		
-		assertFalse(DateUtils.verificarDataAnteriorAtual(data));
+		assertTrue(DateUtils.verificarDataAnteriorOuIgualAtual(data));
 	}
 	
 	@Test
 	public void validarDataAnteriorAtual() {
 		LocalDate data = LocalDate.now().minusMonths(3);
 		
-		assertTrue(DateUtils.verificarDataAnteriorAtual(data));
+		assertFalse(DateUtils.verificarDataAnteriorOuIgualAtual(data));
 	}
 }

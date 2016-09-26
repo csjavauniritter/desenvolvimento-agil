@@ -22,7 +22,6 @@ public class ResourceBundleUtils {
 	
 	public String getProperty(String name) {
 		String result = null;
-		
 		try {
 			result = resourceBundle.getString(name);
 		} catch (MissingResourceException|NullPointerException ex) {

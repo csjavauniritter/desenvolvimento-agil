@@ -5,16 +5,15 @@ import org.joda.time.LocalDate;
 import br.com.unirriter.exception.CSEventosException;
 import br.com.unirriter.model.Evento;
 import br.com.unirriter.utils.DateUtils;
-import br.com.unirriter.utils.ResourceBundleUtils;
 
-public class EventoDataValidador implements EventoValidador {
+public class EventoDataValidador extends Validador<Evento> {
 
 	@Override
 	public void validar(Evento evento) throws CSEventosException {
 		LocalDate dataEvento = evento.getData();
 		
-		if (DateUtils.verificarDataAnteriorAtual(dataEvento)) {
-			throw new CSEventosException(ResourceBundleUtils.getInstance().getProperty("evento.data.maior.data.atual"));
+		if (!DateUtils.verificarDataAnteriorOuIgualAtual(dataEvento)) {
+			throw new CSEventosException(this.getPropriedade("evento.data.maior.data.atual"));
 		}
 	}
 }

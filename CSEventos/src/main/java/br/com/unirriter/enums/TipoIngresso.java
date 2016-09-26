@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 
 public enum TipoIngresso {
 	
-	VIP(BigDecimal.valueOf(1000)), 
-	BACKSTAGE(BigDecimal.valueOf(800)), 
-	PLATEIA_VIP(BigDecimal.valueOf(500)), 
-	PLATEIA(BigDecimal.valueOf(300));
+	VIP(1000.0), 
+	BACKSTAGE(800.0), 
+	PLATEIA_VIP(500.0), 
+	PLATEIA(300.0);
 	
 	private BigDecimal valor;
 	
-	private TipoIngresso(BigDecimal valor) {
-		this.valor = valor;
+	private TipoIngresso(Double valor) {
+		this.valor = BigDecimal.valueOf(valor);
 	}
 
 	public BigDecimal getValor() {

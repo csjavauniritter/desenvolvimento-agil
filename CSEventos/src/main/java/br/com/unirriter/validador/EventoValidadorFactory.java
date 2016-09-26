@@ -3,14 +3,16 @@ package br.com.unirriter.validador;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.unirriter.model.Evento;
+
 public class EventoValidadorFactory {
 	
 	private static EventoValidadorFactory instance = null;
 	
-	private List<EventoValidador> validadores;
+	private List<Validador<Evento>> validadores;
 	
 	protected EventoValidadorFactory() {
-		validadores = new LinkedList<EventoValidador>();
+		validadores = new LinkedList<Validador<Evento>>();
 		this.criarValidadores();
 	}
 	
@@ -21,7 +23,7 @@ public class EventoValidadorFactory {
 		return instance;
 	}
 	
-	public List<EventoValidador> getValidadores() {	
+	public List<Validador<Evento>> getValidadores() {	
 		return validadores;
 	}
 	
@@ -29,5 +31,7 @@ public class EventoValidadorFactory {
 		validadores.add(new EventoCamposObrigatoriosValidador());
 		validadores.add(new EventoNomeMaximoCaracteresValidador());
 		validadores.add(new EventoDataValidador());
+		validadores.add(new EventoPeriodoVendaValidador());
+		validadores.add(new EventoTiposIngressosValidador());
 	}
 }

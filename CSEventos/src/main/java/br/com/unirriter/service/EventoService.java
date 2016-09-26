@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.unirriter.exception.CSEventosException;
 import br.com.unirriter.model.Evento;
-import br.com.unirriter.validador.EventoValidador;
+import br.com.unirriter.validador.Validador;
 import br.com.unirriter.validador.EventoValidadorFactory;
 
 public class EventoService {
@@ -23,8 +23,8 @@ public class EventoService {
 		/**
 		 * validar evento
 		 */
-		List<EventoValidador> validadores = validador.getValidadores();
-		for (EventoValidador validador : validadores) {
+		List<Validador<Evento>> validadores = validador.getValidadores();
+		for (Validador<Evento> validador : validadores) {
 			validador.validar(evento);
 		}
 		
