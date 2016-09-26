@@ -36,4 +36,28 @@ public class DateUtilsTest {
 		
 		assertFalse(DateUtils.verificarDataAnteriorOuIgualAtual(data));
 	}
+	
+	@Test
+	public void validarDataInicioPosteriorDataFim() {
+		LocalDate dataInicio = LocalDate.now().plusDays(5);
+		LocalDate dataFim = LocalDate.now();
+		
+		assertFalse(DateUtils.verificarDataInicioAnteriorOuIgualDataFim(dataInicio, dataFim));
+	}
+	
+	@Test
+	public void validarDataInicioIgualDataFim() {
+		LocalDate dataInicio = LocalDate.now();
+		LocalDate dataFim = LocalDate.now();
+		
+		assertTrue(DateUtils.verificarDataInicioAnteriorOuIgualDataFim(dataInicio, dataFim));
+	}
+	
+	@Test
+	public void validarDataInicioAnteriorDataFim() {
+		LocalDate dataInicio = LocalDate.now();
+		LocalDate dataFim = LocalDate.now().plusDays(5);
+		
+		assertTrue(DateUtils.verificarDataInicioAnteriorOuIgualDataFim(dataInicio, dataFim));
+	}
 }
