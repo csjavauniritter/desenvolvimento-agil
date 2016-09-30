@@ -11,7 +11,7 @@ public class EventoPeriodoVendaValidador extends Validador<Evento> {
 	@Override
 	public void validar(Evento evento) throws CSEventosException {
 		if (evento.getPeriodoVenda() == null) {
-			throw new CSEventosException("PerÃ­odo de Venda nulo!");
+			throw new CSEventosException("Período de Venda nulo!");
 		}
 		
 		LocalDate dataInicio = evento.getPeriodoVenda().getInicio();

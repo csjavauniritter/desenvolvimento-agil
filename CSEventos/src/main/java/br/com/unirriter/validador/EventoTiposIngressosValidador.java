@@ -11,7 +11,7 @@ public class EventoTiposIngressosValidador extends Validador<Evento> {
 	@Override
 	public void validar(Evento evento) throws CSEventosException {
 		if (evento.getIngressos() == null || evento.getIngressos().isEmpty()) {
-			throw new CSEventosException("Tipos de Ingressos inv√°lidos!");
+			throw new CSEventosException("Tipos de Ingressos inv·lidos!");
 		}
 		
 		List<TipoIngresso> ingressos = evento.getIngressos();
