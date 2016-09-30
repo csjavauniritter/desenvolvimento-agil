@@ -2,8 +2,7 @@ package br.com.unirriter.service;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
@@ -40,7 +39,8 @@ public class EventoServiceTest {
 	
 	@Test
 	public void validarObrigatoriedadeCampoNomeNulo() throws Exception {
-		evento.setData(LocalDate.now());
+		this.eventoBuilder(evento, null, 
+									LocalDate.now(), null, null);
 		
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Campo nome é obrigatório!");
@@ -50,8 +50,8 @@ public class EventoServiceTest {
 	
 	@Test
 	public void validarObrigatoriedadeCampoNomeVazio() throws Exception {
-		evento.setNome("");
-		evento.setData(LocalDate.now());
+		this.eventoBuilder(evento, "", 
+									LocalDate.now(), null, null);
 		
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Campo nome é obrigatório!");
@@ -61,8 +61,8 @@ public class EventoServiceTest {
 
 	@Test
 	public void validarObrigatoriedadeCampoDataNula() throws Exception {
-		evento.setNome("Evento A");
-		evento.setData(null);
+		this.eventoBuilder(evento, "Evento A", 
+									null, null, null);
 		
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Campo data é obrigatória!");
@@ -73,9 +73,9 @@ public class EventoServiceTest {
 	@Test
 	public void validarCampoNomeMaiorQue150Caracteres() throws Exception {
 		String nome = StringUtils.rightPad("evento ", 151, 'x');
-		evento.setNome(nome);
-		
-		evento.setData(LocalDate.now());
+		this.eventoBuilder(evento, nome, 
+									LocalDate.now(), 
+									null, null);
 		
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("O nome permite no máximo 150 caracteres!");
@@ -85,9 +85,9 @@ public class EventoServiceTest {
 	
 	@Test
 	public void validarCampoDataMenorQueDataAtual() throws Exception {
-		evento.setNome("Evento A");
-		LocalDate dataPassada = LocalDate.now().minusMonths(1);
-		evento.setData(dataPassada);
+		this.eventoBuilder(evento, "Evento A", 
+									LocalDate.now().minusMonths(1), 
+									null, null);
 		
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("A data do evento deve ser maior ou igual a de hoje!");
@@ -97,12 +97,10 @@ public class EventoServiceTest {
 	
 	@Test
 	public void validarPeriodoVendaDataFimMenorQueInicio() throws Exception {
-		evento.setNome("Evento A");
-		evento.setData(LocalDate.now().plusDays(10));
-		
-		LocalDate periodoVendaInicio = LocalDate.now();
-		LocalDate periodoVendaFim = LocalDate.now().minusDays(2);
-		evento.setPeriodoVenda(new PeriodoVenda(periodoVendaInicio, periodoVendaFim));
+		this.eventoBuilder(evento, "Evento A", 
+									LocalDate.now().plusDays(10), 
+									LocalDate.now(), 
+									LocalDate.now().minusDays(2));
 		
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("A data de início de venda deve ser inferior a data de fim!");
@@ -112,19 +110,14 @@ public class EventoServiceTest {
 	
 	@Test
 	public void validarTiposIngressosDuplicados() throws Exception {
-		evento.setNome("Evento A");
-		evento.setData(LocalDate.now().plusDays(10));
-		
-		LocalDate periodoVendaInicio = LocalDate.now();
-		LocalDate periodoVendaFim = LocalDate.now().plusDays(2);
-		evento.setPeriodoVenda(new PeriodoVenda(periodoVendaInicio, periodoVendaFim));
-		
-		List<TipoIngresso> ingressos = new LinkedList<TipoIngresso>();
-		ingressos.add(TipoIngresso.VIP);
-		ingressos.add(TipoIngresso.BACKSTAGE);
-		ingressos.add(TipoIngresso.BACKSTAGE);
-		ingressos.add(TipoIngresso.PLATEIA_VIP);
-		evento.setIngressos(ingressos);
+		this.eventoBuilder(evento, "Evento A", 
+									LocalDate.now().plusDays(10), 
+									LocalDate.now(), 
+									LocalDate.now().plusDays(2), 
+									TipoIngresso.VIP, 
+									TipoIngresso.BACKSTAGE,
+									TipoIngresso.PLATEIA_VIP,
+									TipoIngresso.BACKSTAGE);
 		
 		exceptionEsperada.expect(CSEventosException.class);
 		exceptionEsperada.expectMessage("Tipos de Ingressos duplicados! Evento não pode ser salvo!");
@@ -134,19 +127,25 @@ public class EventoServiceTest {
 	
 	@Test
 	public void salvarEvento() throws Exception {
-		evento.setNome("Evento Unit Test");
-		LocalDate data = LocalDate.now().plusDays(10);
-		evento.setData(data);
-		
-		LocalDate periodoVendaInicio = LocalDate.now();
-		LocalDate periodoVendaFim = LocalDate.now();
-		evento.setPeriodoVenda(new PeriodoVenda(periodoVendaInicio, periodoVendaFim));
-		
-		List<TipoIngresso> ingressos = new LinkedList<TipoIngresso>();
-		ingressos.add(TipoIngresso.PLATEIA);
-		ingressos.add(TipoIngresso.BACKSTAGE);
-		evento.setIngressos(ingressos);
-		
+		this.eventoBuilder(evento, "Evento Unit Test", 
+									LocalDate.now().plusDays(10), 
+									LocalDate.now(), 
+									LocalDate.now(), 
+									TipoIngresso.PLATEIA, 
+									TipoIngresso.BACKSTAGE);
+
 		assertTrue(eventoService.salvarEvento(evento));
+	}
+	
+	private void eventoBuilder(Evento evento, String nome, LocalDate data, LocalDate inicio, LocalDate fim, TipoIngresso... ingresso) {
+		evento.setNome(nome);
+		evento.setData(data);
+		evento.setPeriodoVenda(this.periodoVendaBuilder(inicio, fim));
+		evento.setIngressos(Arrays.asList(ingresso));
+	}
+	
+	private PeriodoVenda periodoVendaBuilder(LocalDate inicio, LocalDate fim) {
+		PeriodoVenda periodoVenda = new PeriodoVenda(inicio, fim);
+		return periodoVenda;
 	}
 }
