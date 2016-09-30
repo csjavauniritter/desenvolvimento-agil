@@ -16,7 +16,7 @@ public abstract class Validador<T> {
 	}
 	
 	/**
-	 * Método de validação de cada sub classe validador
+	 * MÃ©todo de validaÃ§Ã£o de cada sub classe validador
 	 */
 	public abstract void validar(T modelo) throws CSEventosException;
 }
