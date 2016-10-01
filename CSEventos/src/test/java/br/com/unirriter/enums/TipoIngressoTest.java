@@ -37,4 +37,12 @@ public class TipoIngressoTest {
 		
 		assertEquals(BigDecimal.valueOf(300.0), tipoIngresso.getValor());
 	}
+	
+	@Test
+	public void validarDescontoVIPParaIdoso() {
+		tipoIngresso = TipoIngresso.VIP;
+		TipoDesconto tipoDesconto = TipoDesconto.IDOSO;
+		
+		assertEquals(Double.valueOf(500.0), tipoIngresso.getValorComDesconto(tipoDesconto));
+	}
 }

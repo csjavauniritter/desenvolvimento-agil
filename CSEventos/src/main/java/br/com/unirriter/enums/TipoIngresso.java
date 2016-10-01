@@ -18,4 +18,8 @@ public enum TipoIngresso {
 	public BigDecimal getValor() {
 		return valor;
 	}
+	
+	public Double getValorComDesconto(TipoDesconto tipoDesconto) {
+		return (valor.doubleValue() * tipoDesconto.getDesconto()) / 100;
+	}
 }
