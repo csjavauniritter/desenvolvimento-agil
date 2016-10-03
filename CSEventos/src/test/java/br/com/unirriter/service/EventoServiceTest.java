@@ -43,7 +43,7 @@ public class EventoServiceTest {
 									LocalDate.now(), null, null);
 		
 		exceptionEsperada.expect(CSEventosException.class);
-		exceptionEsperada.expectMessage("Campo nome È obrigatÛrio!");
+		exceptionEsperada.expectMessage("Campo nome √© obrigat√≥rio!");
 		
 		eventoService.salvarEvento(evento);
 	}
@@ -54,7 +54,7 @@ public class EventoServiceTest {
 									LocalDate.now(), null, null);
 		
 		exceptionEsperada.expect(CSEventosException.class);
-		exceptionEsperada.expectMessage("Campo nome È obrigatÛrio!");
+		exceptionEsperada.expectMessage("Campo nome √© obrigat√≥rio!");
 		
 		eventoService.salvarEvento(evento);
 	}
@@ -65,7 +65,7 @@ public class EventoServiceTest {
 									null, null, null);
 		
 		exceptionEsperada.expect(CSEventosException.class);
-		exceptionEsperada.expectMessage("Campo data È obrigatÛria!");
+		exceptionEsperada.expectMessage("Campo data √© obrigat√≥ria!");
 		
 		eventoService.salvarEvento(evento);
 	}
@@ -78,7 +78,7 @@ public class EventoServiceTest {
 									null, null);
 		
 		exceptionEsperada.expect(CSEventosException.class);
-		exceptionEsperada.expectMessage("O nome permite no m·ximo 150 caracteres!");
+		exceptionEsperada.expectMessage("O nome permite no m√°ximo 150 caracteres!");
 		
 		eventoService.salvarEvento(evento);
 	}
@@ -103,7 +103,7 @@ public class EventoServiceTest {
 									LocalDate.now().minusDays(2));
 		
 		exceptionEsperada.expect(CSEventosException.class);
-		exceptionEsperada.expectMessage("A data de inÌcio de venda deve ser inferior a data de fim!");
+		exceptionEsperada.expectMessage("A data de in√≠cio de venda deve ser inferior a data de fim!");
 		
 		eventoService.salvarEvento(evento);
 	}
@@ -120,7 +120,7 @@ public class EventoServiceTest {
 									TipoIngresso.BACKSTAGE);
 		
 		exceptionEsperada.expect(CSEventosException.class);
-		exceptionEsperada.expectMessage("Tipos de Ingressos duplicados! Evento n„o pode ser salvo!");
+		exceptionEsperada.expectMessage("Tipos de Ingressos duplicados! Evento n√£o pode ser salvo!");
 		
 		eventoService.salvarEvento(evento);
 	}
