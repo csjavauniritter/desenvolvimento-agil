@@ -32,7 +32,7 @@ public class PeriodoVenda {
 	
 	@Override
 	public String toString() {
-		return "Período de Venda: " + DateUtils.formatarData(inicio) + 
-				" á " + DateUtils.formatarData(fim);
+		return "PerÃ­odo de Venda: " + DateUtils.formatarData(inicio) + 
+				" Ã¡ " + DateUtils.formatarData(fim);
 	}
 }
