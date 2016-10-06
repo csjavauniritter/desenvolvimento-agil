@@ -1,5 +1,6 @@
 package br.com.unirriter.validador;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import br.com.unirriter.enums.TipoIngresso;
@@ -19,21 +20,14 @@ public class EventoTiposIngressosValidador extends Validador<Evento> {
 	}
 	
 	private void validarIngressosDuplicados(List<TipoIngresso> ingressos) throws CSEventosException {
-		for (TipoIngresso tipoIngresso : TipoIngresso.values()) {
-			boolean duplicados = this.verificarIngressosDuplicados(tipoIngresso, ingressos);
-			if (duplicados) {
+		List<TipoIngresso> duplicados = new LinkedList<TipoIngresso>();
+		
+		for (TipoIngresso ingresso : ingressos) {
+			if (duplicados.contains(ingresso)) {
 				throw new CSEventosException(this.getPropriedade("evento.tipos.ingressos.duplicados"));
 			}
+			
+			duplicados.add(ingresso);
 		}
-	}
-	
-	private boolean verificarIngressosDuplicados(TipoIngresso tipoIngresso, List<TipoIngresso> ingressos) {
-		int numeroIngressos = 0;
-		for (TipoIngresso ingresso : ingressos) {
-			if (tipoIngresso.equals(ingresso)) {
-				numeroIngressos++;
-			}
-		}
-		return numeroIngressos > 1;
 	}
 }
